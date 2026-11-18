@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home Website</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Agrave+Pro:wght@100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+    
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            min-height: 100svh;
+            background-color: #d68290; 
+            background-image: url("images/valeriia-bugaiova-Kd3BSvLgUIo-unsplash.jpg");
+            background-size: cover;
+            background-position: center 62%;
+            background-attachment: fixed;
+            font-family: "AR One Sans", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings: "ARRR" 25;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        
+        main > section {
+            min-height: 100svh;
+        }
+
+        
+        header {
+            position: relative;
+            z-index: 100; 
+        }
+
+        ul {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 20px;
+            color: #fff;
+            list-style: none;
+        }
+
+        
+        .has-dropdown {
+            position: relative;
+        }
+
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0;
+            background: transparent;
+            border: 0;
+            color: inherit;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .nav-btn .arrow {
+            transition: transform 0.2s ease;
+        }
+
+       
+        .has-dropdown.open .arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            min-width: 180px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            color: #fff;
+            opacity: 0;
+            visibility: hidden;
+            transform: translate(-50%, -6px);
+            transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+        }
+
+        .has-dropdown.open .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        .dropdown button {
+            padding: 10px 14px;
+            background: transparent;
+            border: 0;
+            border-radius: 8px;
+            color: #fff;
+            font: inherit;
+            font-size: 0.9rem;
+            text-align: left;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .dropdown button:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        
+        .search-bar,
+        .search-bar * {
+            border: 0;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 260px;
+            padding: 0 16px;
+            background: #f1f1f1;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            color: #666;
+            outline: 10px solid rgba(0, 0, 0, 0.297);
+            transition: width 0.2s ease, background 0.2s ease,
+                        border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .search-bar input {
+            flex: 1;
+            min-width: 0;
+            padding: 10px 0;
+            background: transparent;
+            font-family: inherit;
+            font-size: 0.95rem;
+            color: #111;
+            outline: none;
+        }
+
+        .search-bar input::placeholder {
+            color: #888;
+        }
+
+        .search-bar:hover {
+            background: #e8e8e8;
+        }
+
+        .search-bar:focus-within {
+            width: 320px;
+            background: #fff;
+            border-color: #e067c2;
+            box-shadow: 0 0 0 3px rgba(232, 87, 31, 0.2);
+        }
+
+       
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 0 6rem;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-family: "Orbitron", sans-serif;
+            margin: 0;
+            max-width: 12ch;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: #ffffff;
+            -webkit-text-stroke: 3px #0e190c;
+            paint-order: stroke fill;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+        }
+        
+
+        .hero p {
+            margin: 0;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            opacity: 0.9;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+        }
+
+       
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            padding: 0.9rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 2px solid #fff;
+            border-radius: 999px;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+            transition: background 0.2s ease;
+        }
+
+        .hero-btn svg {
+            margin-left: -3px;
+            transition: transform 0.2s ease;
+        }
+
+        .hero-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .hero-btn:hover svg {
+            transform: translateX(4px); 
+        }
+
+        .back-btn {
+             text-decoration: none;
+             gap: 6px; 
+        }
+
+        .back-btn svg {
+            margin-left: 0;
+            margin-right: 2px;
+        }
+
+        .back-btn:hover svg {
+            transform: translateX(-4px); 
+        }
+
+       
+        .screen-two {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1rem;
+            padding: 0 6rem;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(8px);
+        }
+
+        .screen-two h2 {
+            font-family: "Orbitron", sans-serif;
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+
+        .screen-two p {
+            margin: 0;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            opacity: 0.9;
+        }
+
+        
+        .about {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            align-items: center;
+            gap: 4rem;
+            padding: 4rem 6rem;
+            color: #111;
+            background: #fff;
+        }
+
+        .about-label {
+            display: inline-block;
+            margin-bottom: 1rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #111;
+        }
+
+        .about h2 {
+            font-family: "Orbitron", sans-serif;
+            margin: 0 0 1.5rem;
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+        }
+
+        .about-text p {
+            margin: 0 0 1rem;
+            max-width: 52ch;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            opacity: 0.85;
+        }
+
+        .about-stats {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .stat {
+            padding: 1.5rem 2rem;
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .stat:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: translateX(6px);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            display: block;
+            margin-top: 0.4rem;
+            font-size: 0.95rem;
+            opacity: 0.75;
+        }
+
+
+        footer {
+            padding: 10px;
+            background-color: #000000e6;
+            font-family: serif;
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            opacity: 0.75;
+        }
+
+        /* ---------- MOBILE ---------- */
+        @media (max-width: 768px) {
+            body {
+                background-attachment: scroll;
+            }
+            .hero,
+            .screen-two {
+                padding: 0 1.5rem;
+            }
+            .about {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 4rem 1.5rem;
+            }
+            ul {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                
+                <li class="has-dropdown">
+                    <button type="button" class="nav-btn" aria-expanded="false" aria-haspopup="true">
+                        Home
+                        <svg class="arrow" viewBox="0 0 24 24" width="14" height="14" fill="none"
+                             stroke="currentColor" stroke-width="2.5"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown">
+                        <button type="button">Overview</button>
+                        <button type="button">Latest</button>
+                        <button type="button">Featured</button>
+                    </div>
+                </li>
+
+                <li class="has-dropdown">
+                    <button type="button" class="nav-btn" aria-expanded="false" aria-haspopup="true">
+                        Discover
+                        <svg class="arrow" viewBox="0 0 24 24" width="14" height="14" fill="none"
+                             stroke="currentColor" stroke-width="2.5"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown">
+                        <!--FIX TO ABOUT ME 3:HTML-->
+                        <button type="button">Trending</button>
+                        <button type="button">Categories</button>
+                        <button type="button">Surprise me</button>
+                    </div>
+                </li>
+
+                
+                <li class="has-dropdown">
+                    <button type="button" class="nav-btn" aria-expanded="false" aria-haspopup="true">
+                        News
+                        <svg class="arrow" viewBox="0 0 24 24" width="14" height="14" fill="none"
+                             stroke="currentColor" stroke-width="2.5"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown">
+                        <button type="button">Today</button>
+                        <button type="button">Popular</button>
+                        <button type="button">Archive</button>
+                    </div>
+                </li>
+
+                
+                <li class="has-dropdown">
+                    <button type="button" class="nav-btn" aria-expanded="false" aria-haspopup="true">
+                        Support
+                        <svg class="arrow" viewBox="0 0 24 24" width="14" height="14" fill="none"
+                             stroke="currentColor" stroke-width="2.5"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="dropdown">
+                        <button type="button">Help center</button>
+                        <button type="button">Contact us</button>
+                        <button type="button">FAQ</button>
+                    </div>
+                </li>
+
+              
+                <li>
+                    <div class="search-bar">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                             stroke="currentColor" stroke-width="2"
+                             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                        <input type="search" placeholder="Search" aria-label="Search">
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        
+        
+<section class="hero">
+
+    <a href="./Website1.html" class="hero-btn back-btn">
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+        stroke="currentColor" stroke-width="2.5"
+        stroke-linecap="round" stroke-linejoin="round"
+        aria-hidden="true">
+
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+
+    </svg>
+
+        Back to home
+    </a>
+
+    <h1>What do you want to know</h1>
+
+    <button type="button" class="hero-btn">
+        Learn More
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+            stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round"
+            aria-hidden="true">
+
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+
+        </svg>
+    </button>
+
+</section>
+
+
+        
+        <section class="screen-two">
+            <h2>BLABLABLA</h2>
+            <p>"But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I
+                will give you a complete account of the system, and expound the actual teachings of the
+                great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes,
+                or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue
+                pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who
+                loves or pursues or desires to obtain pain of itself, because it is pain, but because occasionally
+                circumstances occur in which toil and pain can procure him some great pleasure. To take a trivial example,
+                which of us ever undertakes laborious physical exercise, except to obtain some advantage from it? But who has
+                any right to find fault with a man who chooses to enjoy a pleasure that has no annoying consequences, or one who
+                avoids a pain that produces no resultant pleasure?"
+            </p>
+        </section>
+
+        
+        <section class="about">
+            <div class="about-text">
+                <span class="about-label">About me</span>
+                <h2>About my life</h2>
+                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    mollit anim id est laborum."
+                </p>
+            </div>
+
+            <div class="about-stats">
+                <div class="stat">
+                    <span class="stat-number">2000</span>
+                    <span class="stat-label">Born</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Nerd</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">Japper</span>
+                </div>
+            </div>
+        </section>
+
+        
+    </main>
+
+    <footer>
+        Home Website
+    </footer>
+
+    <script>
+        const menus = document.querySelectorAll(".has-dropdown");
+
+        function closeAll(except) {
+            menus.forEach((menu) => {
+                if (menu !== except) {
+                    menu.classList.remove("open");
+                    menu.querySelector(".nav-btn").setAttribute("aria-expanded", "false");
+                }
+            });
+        }
+
+        menus.forEach((menu) => {
+            const btn = menu.querySelector(".nav-btn");
+
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const isOpen = menu.classList.toggle("open");
+                btn.setAttribute("aria-expanded", isOpen);
+                closeAll(menu); // only one menu open at a time
+            });
+        });
+
+        // click anywhere else closes menus
+        document.addEventListener("click", () => closeAll());
+
+        // Escape key closes menus
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") closeAll();
+        });
+    </script>
+</body>
+</html>
