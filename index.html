@@ -22,15 +22,21 @@
             flex-direction: column;
             margin: 0;
             background-color: #d68290; 
-            background-image: url("images/fabian-moller-gI7zgb80QWY-unsplash.jpg");
-            background-size: cover;
-            background-position: center 62%;
-            background-attachment: fixed;
             font-family: "AR One Sans", sans-serif;
             font-optical-sizing: auto;
             font-weight: 400;
             font-style: normal;
             font-variation-settings: "ARRR" 25;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image: url("images/fabian-moller-gI7zgb80QWY-unsplash.jpg");
+            background-size: cover;
+            background-position: center 62%;
         }
             
 
@@ -161,7 +167,8 @@
             transition: background 0.15s ease;
         }
 
-        .dropdown a:hover {
+        .dropdown a:hover,
+        .dropdown button:hover {
             background: rgba(255, 255, 255, 0.15);
         }
 
@@ -337,7 +344,7 @@
     font-size: clamp(2rem, 5vw, 4.5rem);
     font-weight: 800;
     line-height: 1.05;
-    letter-spacing: -0 .03em;
+    letter-spacing: -0.03em;
 }
 
 .about-text p {
@@ -358,11 +365,14 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     backdrop-filter: blur(8px);
-    transition: background 0.2 ease, transform 0.2 ease;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
-.stat:hover {
-    background: rgba(255, 255, 255, 0.18);
-    transform: translateX(6px);
+
+@media (hover: hover) {
+    .stat:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transform: translateX(6px);
+    }
 }
 
 .stat-number {
@@ -394,50 +404,75 @@ footer {
 
 
 @media (max-width: 768px) {
-    body {
-        
-        background-attachment: scroll;
-    }
 
-    
     ul {
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 4px;
         padding: 10px;
     }
 
     li {
-        padding: 10px 12px;
+        padding: 6px 10px;
     }
 
-    
+    li:last-child {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 14px 10px;
+    }
+
+    .nav-btn {
+        min-height: 44px;
+    }
+
+    .has-dropdown {
+        position: static;
+    }
+
     .dropdown {
-        left: 0;
-        transform: translate(0, -6px);
+        left: 12px;
+        right: 12px;
+        min-width: 0;
+        transform: translateY(-6px);
     }
 
     .has-dropdown.open .dropdown {
-        transform: translate(0, 0);
+        transform: translateY(0);
     }
 
-    
+    .dropdown button {
+        min-height: 44px;
+        padding: 12px 14px;
+    }
+
     .search-bar,
     .search-bar:focus-within {
         width: 100%;
         max-width: 280px;
     }
 
-    
+    .search-bar input {
+        font-size: 1rem;
+    }
+
     .hero,
     .screen-two {
         padding: 2rem 1.5rem;
     }
 
-    
+    .hero h1 {
+        -webkit-text-stroke: 2px #0e190c;
+    }
+
     .about {
         grid-template-columns: 1fr;
         gap: 2rem;
         padding: 3rem 1.5rem;
+    }
+
+    .stat {
+        padding: 1.2rem 1.5rem;
     }
 }
 
@@ -476,9 +511,9 @@ footer {
         <div class="dropdown">
             <div class="mega-col">
             <span class="mega-title">Explore Home</span>    
-            <button type="button" data-url="about me 2.html" data-same-tab>About</button>
-            <button type="button" data-url="about me 2.html" data-same-tab>Latest</button>
-            <button type="button" data-url="about me 2.html" data-same-tab>Featured</button>
+            <button type="button" data-url="about-me-2.html" data-same-tab>About</button>
+            <button type="button" data-url="about-me-2.html" data-same-tab>Latest</button>
+            <button type="button" data-url="about-me-2.html" data-same-tab>Featured</button>
       </div>
      </div>
     </li>
@@ -495,9 +530,9 @@ footer {
         <div class="dropdown">
             <div class="mega-col">
             <span class="mega-title">Quick Links</span>    
-            <button type="button" data-url="about me 3.html" data-same-tab>Trending</button>
-            <button type="button" data-url="about me 3.html" data-same-tab>Categories</button>
-            <button type="button" data-url="about me 3.html" data-same-tab>Surprise me</button>
+            <button type="button" data-url="about-me-3.html" data-same-tab>Trending</button>
+            <button type="button" data-url="about-me-3.html" data-same-tab>Categories</button>
+            <button type="button" data-url="about-me-3.html" data-same-tab>Surprise me</button>
        </div>
      </div>
     </li>
@@ -558,7 +593,7 @@ footer {
             <p>discover something new</p>
             <button type="button" class="hero-btn">Explore<svg viewBox="0 0 24 24" width="18" height="18" fill="none"
                 stroke="currentColor" stroke-width="2.5" 
-                stroke-linecap="round" stroke-linecap="round" aria-hidden="true">
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"></line><polyline 
                 points="12 5 19 12 12 19"></polyline></svg>
             </button>
